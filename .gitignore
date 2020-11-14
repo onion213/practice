@@ -1,3 +1,6 @@
+# common
+.DS_Store
+
 # flask-tutorial
 *.pyc
 __pycache__/
