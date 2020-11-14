@@ -19,7 +19,7 @@ def show_login_form():
 def do_login():
 	return 'logged in'
 
-@app.route('/login2', methods=['get', 'post'])
+@app.route('/login2ß', methods=['get', 'post'])
 def login():
 	if request.method == 'post':
 		return do_login()
