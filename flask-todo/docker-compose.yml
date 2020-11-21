@@ -1,0 +1,30 @@
+version: '3'
+
+volumes: 
+  db-store:
+
+services:
+  flask:
+    build: .
+    ports:
+      - '5000:5000'
+    volumes:
+      - './flask:/todo/flask'
+    stdin_open: true
+    tty: true
+    depends_on: 
+      - db
+    links: 
+      - db
+
+  db: 
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: todo
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - 'db-store:/var/lib/mysql'
+      - './db-logs:/var/log/mysql'
