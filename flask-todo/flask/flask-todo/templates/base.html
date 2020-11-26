@@ -7,10 +7,10 @@
 
     <body>
         <nav>
-            <img src="">
+            <img src="{{ url_for('static', filename='logo.png') }}">
             <ul>
                 {% for item in menu %}
-                    <li><a href="{{ url_for(item.func) }}">{{ item.text }}</a></li>
+                    <li><a href="{{ url_for(item['func']) }}">{{ item['text'] }}</a></li>
                 {% endfor %}
             </ul>
         </nav>

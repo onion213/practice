@@ -5,8 +5,12 @@ def create_app():
 
     @app.route('/login')
     def login():
-       return  render_template('auth/login.html')
+       return  render_template('auth/login.html', menu=[{'text': 'Register', 'func': 'register'}])
     
+    @app.route('/register')
+    def register():
+        return render_template('auth/register.html', menu=[{'text': 'Login', 'func': 'login'}])
+
     return app
 
 if __name__=='__main__':
