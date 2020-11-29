@@ -1,15 +1,21 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, g, request, redirect, url_for
 
 def create_app():
     app = Flask(__name__)
 
-    @app.route('/login')
+    @app.route('/login', methods=['GET', 'POST'])
     def login():
-        return  render_template('auth/login.html', menu=[{'text': 'Register', 'func': 'register'}])
+        if request.method == 'GET':
+            try:
+                g.user
+                return redirect(url_for('/home'))
+            except AttributeError:
+                return render_template('auth/login.html')
+        return "a"
     
     @app.route('/register')
     def register():
-        return render_template('auth/register.html', menu=[{'text': 'Login', 'func': 'login'}])
+        return render_template('auth/register.html')
 
     return app
 

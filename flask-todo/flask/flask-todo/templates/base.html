@@ -10,7 +10,7 @@
             <img class="logo" src="{{ url_for('static', filename='logo_resized.png') }}">
             <nav>
                 <ul>
-                    {% for item in menu %}
+                    {% for item in items %}
                         <li><a href="{{ url_for(item['func']) }}">{{ item['text'] }}</a></li>
                     {% endfor %}
                 </ul>

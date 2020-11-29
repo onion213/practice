@@ -4,6 +4,8 @@
     <h1>{% block title %}Register{% endblock %}</h1>
 {% endblock %}
 
+{% set items = [{'text': 'Login', 'func': 'login'}] %}
+
 {% block content %}
     <form class="auth" method="post">
         <div class="q">
