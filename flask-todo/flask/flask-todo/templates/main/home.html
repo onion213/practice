@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Your Todos{% endblock %}</h1>
+{% endblock %}
+
+{% set items = [{'text': 'Logout', 'func': 'logout'}] %}
+
+{% block content %}
+    <table>
+        {% for todo in todos %}
+            <tr>
+                <td>check</td>
+                <td>todo['content']</td>
+                <td>trash</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
