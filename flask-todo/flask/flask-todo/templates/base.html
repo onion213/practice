@@ -6,14 +6,16 @@
     </head>
 
     <body>
-        <nav>
-            <img src="{{ url_for('static', filename='logo.png') }}">
-            <ul>
-                {% for item in menu %}
-                    <li><a href="{{ url_for(item['func']) }}">{{ item['text'] }}</a></li>
-                {% endfor %}
-            </ul>
-        </nav>
+        <div class="header">
+            <img class="logo" src="{{ url_for('static', filename='logo_resized.png') }}">
+            <nav>
+                <ul>
+                    {% for item in menu %}
+                        <li><a href="{{ url_for(item['func']) }}">{{ item['text'] }}</a></li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
         <section class="content">
             <header>
                 {% block header %}{% endblock %}

@@ -1,0 +1,38 @@
+body {
+    width: 960px;
+    margin: 0 auto;
+}
+
+div.header {
+    display: flex;
+    justify-content: flex-end;
+    height: 60px;
+    background-color: #47bdbd;
+    margin: 0;
+    padding: 0;
+}
+
+div.header >:first-child {
+    margin-right: auto;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    background-color: #3b9e9e;
+    margin-top: 0;
+    padding: 0;
+    padding-top: 15px;
+    height: 45px;
+}
+
+nav li {
+    width: 180px;
+    text-align: center;
+}
+
+nav a { 
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+}
