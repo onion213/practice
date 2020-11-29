@@ -1,12 +1,19 @@
+* {
+    padding: 0;
+    margin: 0;
+    color: #5e5e5e;
+    font-size: 32pt;
+}
+
 body {
-    width: 960px;
+    width: 960pt;
     margin: 0 auto;
 }
 
 div.header {
     display: flex;
     justify-content: flex-end;
-    height: 60px;
+    height: 60pt;
     background-color: #47bdbd;
     margin: 0;
     padding: 0;
@@ -16,23 +23,71 @@ div.header >:first-child {
     margin-right: auto;
 }
 
+img.logo {
+    height: 60pt;
+    width: 180pt;
+}
+
 nav ul {
     display: flex;
     list-style: none;
     background-color: #3b9e9e;
     margin-top: 0;
-    padding: 0;
-    padding-top: 15px;
-    height: 45px;
+    padding-top: 5pt;
+    height: 55pt;
 }
 
 nav li {
-    width: 180px;
+    width: 180pt;
     text-align: center;
 }
 
-nav a { 
-    font-size: 24px;
+nav a {
+    display: block;
+    height: 60pt;
+    font-size: 32pt;
     color: white;
     text-decoration: none;
+}
+
+section.content {
+    background-color: #d3ffff;
+}
+
+h1 {
+    display: block;
+    margin: 0 auto;
+    padding: 60pt 0;
+    text-align: center;
+}
+
+
+form.auth {
+    padding-bottom: 60pt;
+}
+
+form.auth div.q {
+    display: flex;
+    justify-content: center;
+    height: 45pt;
+    margin-bottom: 45pt;
+}
+
+form.auth div.q label {
+    width: 180pt;
+}
+
+form.auth div.q input {
+    height: 45pt;
+    width: 300pt;
+}
+
+form.auth input.submit {
+    display: block;
+    background-color: #47bdbd;
+    height: 45pt;
+    width: 480pt;
+    color: white;
+    margin: 0 auto;
+    border: none;
 }
