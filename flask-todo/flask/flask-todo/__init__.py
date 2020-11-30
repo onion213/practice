@@ -15,19 +15,20 @@ def create_app():
             db = connect_db()
             cursor = db.cursor()
             cursor.execute(
-                'SELECT * FROM users WHERE name = %s', (username,)
+                'SELECT * FROM users WHERE name = "%s" AND enabled = TRUE;', (username,)
             )
             user = cursor.fetchone()
+            close_db()
             error = None
 
             if user is None:
                 error = 'Invalid username.'
-            elif check_password_hash(user['password'], password):
+            elif check_password_hash(user[2], password):
                 error = 'Invalid password.'
             
             if error is None:
                 session.clear()
-                session['uid'] = user['id']
+                session['uid'] = user[0]
                 return redirect(url_for('home'))
             
             flash(error)
@@ -42,9 +43,37 @@ def create_app():
                 return render_template('auth/login.html')
         
     
-    @app.route('/register')
+    @app.route('/register', methods=['GET', 'POST'])
     def register():
-        return render_template('auth/register.html')
+        session.clear()
+        if request.method == 'POST':
+            username = request.form['username']
+            password = request.form['password']
+
+            db = connect_db()
+            cursor = db.cursor()
+            cursor.execute(
+                'SELECT * FROM users WHERE name = "%s" AND enabled = TRUE;', (username,)
+            )
+            user = cursor.fetchone()
+            error = None
+            if user is not None:
+                error = 'Username already used.'
+            
+            if error is None:
+                print(generate_password_hash(password))
+                cursor.execute(
+                    'INSERT INTO users(name, password) VALUES("%s", "%s");', 
+                    (username, generate_password_hash(password))
+                )
+                close_db()
+                return redirect(url_for('login'))
+            
+            close_db()
+            flash(error)
+            return render_template('auth/register.html')
+        else:
+            return render_template('auth/register.html')
 
     @app.route('/home')
     def home():
@@ -52,12 +81,16 @@ def create_app():
         if uid is None:
             return redirect(url_for('login'))
         db = connect_db()
-        cursor = db.cursor
-        todos = cursor.execute(
-            'SELECT * FROM todos WHERE user_id = %s', (uid,)
-        ).fetchall()
+        cursor = db.cursor()
+        cursor.execute(
+            'SELECT * FROM todos WHERE user_id = "%s" AND done = FALSE;', (uid,)
+        )
+        todos = cursor.fetchall()
         return render_template('main/home.html', todos=todos)
 
+    @app.route('/logout')
+    def logout():
+        pass
     return app
 
 if __name__=='__main__':
