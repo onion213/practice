@@ -15,7 +15,7 @@ def create_app():
             db = connect_db()
             cursor = db.cursor()
             cursor.execute(
-                'SELECT * FROM users WHERE name = "%s" AND enabled = TRUE;', (username,)
+                'SELECT * FROM users WHERE name = %s AND enabled = TRUE;', (username,)
             )
             user = cursor.fetchone()
             close_db()
@@ -23,7 +23,10 @@ def create_app():
 
             if user is None:
                 error = 'Invalid username.'
-            elif check_password_hash(user[2], password):
+            elif not check_password_hash(user[2], password):
+                print(user[2])
+                print(password)
+                print(generate_password_hash(password))
                 error = 'Invalid password.'
             
             if error is None:
@@ -53,7 +56,7 @@ def create_app():
             db = connect_db()
             cursor = db.cursor()
             cursor.execute(
-                'SELECT * FROM users WHERE name = "%s" AND enabled = TRUE;', (username,)
+                'SELECT * FROM users WHERE name = %s AND enabled = TRUE;', (username,)
             )
             user = cursor.fetchone()
             error = None
@@ -63,9 +66,10 @@ def create_app():
             if error is None:
                 print(generate_password_hash(password))
                 cursor.execute(
-                    'INSERT INTO users(name, password) VALUES("%s", "%s");', 
+                    'INSERT INTO users(name, password) VALUES(%s, %s);', 
                     (username, generate_password_hash(password))
                 )
+                db.commit()
                 close_db()
                 return redirect(url_for('login'))
             
@@ -83,7 +87,7 @@ def create_app():
         db = connect_db()
         cursor = db.cursor()
         cursor.execute(
-            'SELECT * FROM todos WHERE user_id = "%s" AND done = FALSE;', (uid,)
+            'SELECT * FROM todos WHERE user_id = %s AND done = FALSE;', (uid,)
         )
         todos = cursor.fetchall()
         return render_template('main/home.html', todos=todos)
