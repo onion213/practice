@@ -91,3 +91,32 @@ form.auth input.submit {
     margin: 0 auto;
     border: none;
 }
+
+table.todos {
+    display: block;
+    width: 480pt;
+    margin: 0 auto;
+    padding-bottom: 60pt;
+    border-collapse: collapse;
+}
+
+table.todos tr {
+    border-bottom: 2pt #5e5e5e solid;
+}
+
+.fa {
+    color: #d5d5d5;
+}
+td.check {
+    color: #d5d5d5;
+    width: 45pt;
+}
+
+td.title {
+    width: 411pt;
+}
+
+td.trash {
+    color: #d5d5d5;    
+    width: 24pt;
+}
