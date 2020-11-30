@@ -96,6 +96,7 @@ def create_app():
     def logout():
         session.clear()
         return redirect(url_for('login'))
+    
     return app
 
 if __name__=='__main__':
