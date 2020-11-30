@@ -94,7 +94,8 @@ def create_app():
 
     @app.route('/logout')
     def logout():
-        pass
+        session.clear()
+        return redirect(url_for('login'))
     return app
 
 if __name__=='__main__':
