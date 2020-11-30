@@ -7,12 +7,12 @@
 {% set items = [{'text': 'Logout', 'func': 'logout'}] %}
 
 {% block content %}
-    <table>
+    <table class="todos"> 
         {% for todo in todos %}
             <tr>
-                <td>check</td>
-                <td>todo['content']</td>
-                <td>trash</td>
+                <td class="check"><i class="far fa-circle"></i></td>
+                <td class="title">{{ todo[1] }}</td>
+                <td class="trash"><i class="fas fa-trash"></i></td>
             </tr>
         {% endfor %}
     </table>
