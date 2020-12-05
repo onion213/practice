@@ -4,7 +4,7 @@
     <h1>{% block title %}Add Todo{% endblock %}</h1>
 {% endblock %}
 
-{% set items = [{'test': 'Home', 'func': 'home'}, {'text': 'Logout', 'func': 'logout'}] %}
+{% set items = [{'text': 'Home', 'func': 'home'}, {'text': 'Logout', 'func': 'logout'}] %}
 
 {% block content %}
     <form action="/add" method="POST">
