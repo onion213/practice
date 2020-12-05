@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Add Todo{% endblock %}</h1>
+{% endblock %}
+
+{% set items = [{'test': 'Home', 'func': 'home'}, {'text': 'Logout', 'func': 'logout'}] %}
+
+{% block content %}
+    <form action="/add" method="POST">
+        <div class="q">
+            <label for="title">Title</label>
+            <input name="title" id="title" required>
+        </div>
+        <input class="submit" type="submit" value="Add"> 
+    </form>
+{% endblock %}

@@ -87,7 +87,8 @@ def create_app():
         db = connect_db()
         cursor = db.cursor()
         cursor.execute(
-            'SELECT * FROM todos WHERE user_id = %s AND done = FALSE;', (uid,)
+            'SELECT * FROM todos WHERE user_id = %s AND done = FALSE;',
+            (uid,)
         )
         todos = cursor.fetchall()
         return render_template('main/home.html', todos=todos)
@@ -97,6 +98,25 @@ def create_app():
         session.clear()
         return redirect(url_for('login'))
     
+    @app.route('/add', methods=['GET', 'POST'])
+    def add_todo():
+        uid = session.get('uid')
+        if uid is None:
+            return redirect(url_for('login'))
+        if request.method == 'POST':
+            title = request.form['title']
+            db = connect_db()
+            cursor = db.cursor()
+            cursor.execute(
+                'INSERT INTO todos(user_id, title) VALUES(%s, %s)',
+                (uid, title)
+            )
+            db.commit()
+            close_db()
+            return redirect('/home')
+        else:
+            return render_template('main/add.html')
+
     return app
 
 if __name__=='__main__':

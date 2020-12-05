@@ -62,27 +62,27 @@ h1 {
 }
 
 
-form.auth {
+form {
     padding-bottom: 60pt;
 }
 
-form.auth div.q {
+form div.q {
     display: flex;
     justify-content: center;
     height: 45pt;
     margin-bottom: 45pt;
 }
 
-form.auth div.q label {
+form div.q label {
     width: 180pt;
 }
 
-form.auth div.q input {
+form div.q input {
     height: 45pt;
     width: 300pt;
 }
 
-form.auth input.submit {
+input.submit {
     display: block;
     background-color: #47bdbd;
     height: 45pt;
