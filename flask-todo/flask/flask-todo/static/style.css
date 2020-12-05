@@ -101,6 +101,7 @@ table.todos {
 
 table.todos tr {
     border-bottom: 2pt #5e5e5e solid;
+    height: 80pt;
 }
 
 .fa {
@@ -112,6 +113,7 @@ td.check {
 }
 
 td.title {
+    font-size: 24pt;
     width: 411pt;
 }
 
