@@ -149,6 +149,22 @@ def create_app():
         close_db()
         return redirect(url_for('home'))
 
+    @app.route('/incomplete/<int:todo_id>')
+    def incomplete_todo(todo_id):
+        uid = session.get('uid')
+        if uid is None:
+            return redirect(url_for('login'))
+        
+        db = connect_db()
+        cursor = db.cursor()
+        cursor.execute(
+            'UPDATE todos SET done = FALSE WHERE todo_id = %s AND user_id = %s',
+            (todo_id, uid)
+        )
+        db.commit()
+        close_db()
+        return redirect(url_for('home'))
+
     @app.route('/completed-todos')
     def show_completed_todos():
         uid = session.get('uid')
