@@ -51,7 +51,9 @@ nav a {
 }
 
 section.content {
+    display: block;
     background-color: #d3ffff;
+    padding-bottom: 60pt;
 }
 
 h1 {
@@ -59,11 +61,6 @@ h1 {
     margin: 0 auto;
     padding: 60pt 0;
     text-align: center;
-}
-
-
-form {
-    padding-bottom: 60pt;
 }
 
 form div.q {
@@ -82,7 +79,7 @@ form div.q input {
     width: 300pt;
 }
 
-input.submit {
+input.submit, a.redirect_button{
     display: block;
     background-color: #47bdbd;
     height: 45pt;
@@ -90,6 +87,8 @@ input.submit {
     color: white;
     margin: 0 auto;
     border: none;
+    text-decoration: none;
+    text-align: center;
 }
 
 table.todos {
