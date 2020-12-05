@@ -133,7 +133,23 @@ def create_app():
         close_db()
         return redirect(url_for('home'))
 
+    @app.route('/complete/<int:todo_id>')
+    def complete_todo(todo_id):
+        uid = session.get('uid')
+        if uid is None:
+            return redirect(url_for('login'))
         
+        db = connect_db()
+        cursor = db.cursor()
+        cursor.execute(
+            'UPDATE todos SET done = TRUE WHERE todo_id = %s AND user_id = %s',
+            (todo_id, uid)
+        )
+        db.commit()
+        close_db()
+        return redirect(url_for('home'))
+
+    
 
     return app
 
