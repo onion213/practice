@@ -12,7 +12,11 @@
             <tr>
                 <td class="check"><i class="far fa-circle"></i></td>
                 <td class="title">{{ todo[1] }}</td>
-                <td class="trash"><i class="fas fa-trash"></i></td>
+                <td class="trash">
+                    <a href="delete/{{ todo[0] }}" onclick="return confirm('You are deleting todo. Are you sure?')">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
             </tr>
         {% endfor %}
     </table>

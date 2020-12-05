@@ -116,6 +116,24 @@ def create_app():
             return redirect('/home')
         else:
             return render_template('main/add.html')
+    
+    @app.route('/delete/<int:todo_id>')
+    def delete_todo(todo_id):
+        uid = session.get('uid')
+        if uid is None:
+            return redirect(url_for('login'))
+        
+        db = connect_db()
+        cursor = db.cursor()
+        cursor.execute(
+            'DELETE FROM todos WHERE todo_id = %s AND user_id = %s',
+            (todo_id, uid)
+        )
+        db.commit()
+        close_db()
+        return redirect(url_for('home'))
+
+        
 
     return app
 
