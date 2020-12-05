@@ -149,7 +149,20 @@ def create_app():
         close_db()
         return redirect(url_for('home'))
 
-    
+    @app.route('/completed-todos')
+    def show_completed_todos():
+        uid = session.get('uid')
+        if uid is None:
+            return redirect(url_for('login'))
+        db = connect_db()
+        cursor = db.cursor()
+        cursor.execute(
+            'SELECT * FROM todos WHERE user_id = %s AND done = TRUE ORDER BY updated_at DESC;',
+            (uid,)
+        )
+        todos = cursor.fetchall()
+        return render_template('main/completed-todos.html', todos=todos)
+ 
 
     return app
 

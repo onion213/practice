@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Your Todos{% endblock %}</h1>
+{% endblock %}
+
+{% set items = [{'text': 'Home', 'func': 'home'}, {'text': 'Logout', 'func': 'logout'}] %}
+
+{% block content %}
+    <table class="todos"> 
+        {% for todo in todos %}
+            <tr>
+                <td class="check">
+                    <i class="far fa-dot-circle"></i>
+                </td>
+                <td class="title">{{ todo[1] }}</td>
+                <td class="trash">
+                    <a href="incomplete/{{ todo[0] }}">
+                        <i class="fas fa-undo"></i>
+                    </a>
+                 </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a class="redirect_button" href="/home">Back</a>
+    
+{% endblock %}

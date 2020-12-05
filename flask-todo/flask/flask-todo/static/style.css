@@ -86,6 +86,7 @@ input.submit, a.redirect_button{
     width: 480pt;
     color: white;
     margin: 0 auto;
+    margin-bottom: 45pt;
     border: none;
     text-decoration: none;
     text-align: center;
