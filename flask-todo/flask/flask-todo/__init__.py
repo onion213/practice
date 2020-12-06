@@ -179,20 +179,38 @@ def create_app():
         todos = cursor.fetchall()
         return render_template('main/completed-todos.html', todos=todos)
 
-    @app.route('/thank-you-for-using')
+    @app.route('/thank-you-for-using', methods=['GET', 'POST'])
     def delete_account():
-        uid = session.get('uid')
-        if uid is None:
+        if request.method == 'POST':
+            uid = session.get('deleted_uid')
+            if uid is None:
+                return redirect(url_for('login'))
+            
+            reason = request.form['reason']
+            db = connect_db()
+            cursor = db.cursor()
+            cursor.execute(
+                'INSERT INTO exiting_reasons(user_id, reason) VALUES(%s, %s);',
+                (uid, reason)
+            )
+            db.commit()
+            session.clear()
             return redirect(url_for('login'))
-        db = connect_db()
-        cursor = db.cursor()
-        cursor.execute(
-            'UPDATE users SET enabled = FALSE WHERE user_id = %s;',
-            (uid,)
-        )
-        db.commit()
-        session.clear()
-        return render_template('/main/exiting-questionaire.html')
+        else:
+            uid = session.get('uid')
+            if uid is None:
+                return redirect(url_for('login'))
+        
+            db = connect_db()
+            cursor = db.cursor()
+            cursor.execute(
+                'UPDATE users SET enabled = FALSE WHERE user_id = %s;',
+                (uid,)
+            )
+            db.commit()
+            session.clear()
+            session['deleted_uid'] = uid
+            return render_template('/main/exiting-questionaire.html')
         
 
     return app

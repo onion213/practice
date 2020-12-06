@@ -23,7 +23,9 @@ CREATE TABLE IF NOT EXISTS todos (
 
 CREATE TABLE IF NOT EXISTS exiting_reasons (
     reason_id INTEGER PRIMARY KEY AUTO_INCREMENT, 
+    user_id INTEGER NOT NULL,
     reason TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
