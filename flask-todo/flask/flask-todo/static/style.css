@@ -144,3 +144,10 @@ textarea {
     resize: vertical;
     font-size: 18pt;
 }
+
+a.exiting_button {
+    display: block;
+    text-align: center;
+    font-size: 18pt;
+    color: #a0a0a0;
+}
