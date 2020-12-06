@@ -122,3 +122,18 @@ td.trash {
     color: #d5d5d5;    
     width: 24pt;
 }
+
+label.last-message {
+    display: block;
+    width: 480pt;
+    margin: 0 auto;
+    font-size: 18pt;
+}
+
+textarea {
+    display: block;
+    width: 480pt;
+    margin: 45pt auto;
+    resize: vertical;
+    font-size: 18pt;
+}

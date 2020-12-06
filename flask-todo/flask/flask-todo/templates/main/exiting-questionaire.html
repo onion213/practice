@@ -8,8 +8,12 @@
 
 {% block content %}
     <form action="/thank-you-for-using" method="POST">
-        <label class="last-message" for="reason">Your account has successfully been deleted. Thank you for using this application so far. Finally, let us know the reason you stopped using this application, please.</label>
-        <input type="textarea" name="reason" id="reason">
+        <label class="last-message" for="reason">
+            Your account has successfully been deleted. <br>
+            Thank you for using this application so far. <br>
+            Let us know the reason you stopped using, please.
+        </label>
+        <textarea name="reason" id="reason"></textarea>
         <input class="submit" type="submit" value="Submit"> 
     </form>
 {% endblock %}
