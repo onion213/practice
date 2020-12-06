@@ -28,18 +28,25 @@ img.logo {
     width: 180pt;
 }
 
+div.vr {
+    background-color:#47bdbd;
+    width:2pt;
+    height:40pt;
+    margin: 0 auto;
+}
 nav ul {
     display: flex;
     list-style: none;
-    background-color: #3b9e9e;
     margin-top: 0;
-    padding-top: 5pt;
-    height: 55pt;
-}
+    }
 
 nav li {
+    padding-top: 5pt;
+    height: 55pt;
     width: 180pt;
     text-align: center;
+    background-color: #3b9e9e;
+    margin-left: 1pt;
 }
 
 nav a {
