@@ -1,5 +1,5 @@
 """
-Flask-MySQL
+Flask-MySQL-Onion
 -----------
 
 Very basic support for MySQL.

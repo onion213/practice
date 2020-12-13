@@ -9,9 +9,9 @@ class MySQL(object):
             self.init_app(app)
 
     def init_app(self, app):
-        app.config.setdefault('MYSQL_HOST', 'db')
-        app.config.setdefault('MYSQL_USERNAME', 'onion')
-        app.config.setdefault('MYSQL_PASSWORD', 'onion')
+        app.config.setdefault('MYSQL_HOST', 'localhost')
+        app.config.setdefault('MYSQL_USERNAME', 'root')
+        app.config.setdefault('MYSQL_PASSWORD', 'root')
         app.config.setdefault('MYSQL_DATABASE', 'onion-app')
         app.teardown_appcontext(self.teardown)
 
