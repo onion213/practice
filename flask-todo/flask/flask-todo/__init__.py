@@ -1,6 +1,6 @@
 from flask import Flask, render_template, g, request, redirect, url_for, session, flash
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_mysql import MySQL
+from flask_mysql_onion import MySQL
 
 
 def create_app():
