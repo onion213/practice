@@ -3,7 +3,7 @@ Flask-MySQL
 -----------
 
 Very basic support for MySQL.
-Required configs in app.config:
+Configs you can set:
     - MYSQL_HOST
     - MYSQL_USERNAME
     - MYSQL_PASSWORD
@@ -13,18 +13,15 @@ Required configs in app.config:
 from setuptools import setup
 
 setup(
-    name='Flask-MySQL',
+    name='Flask-MySQL-Onion',
     version='1.0',
-    url='http://example.com/flask-mysql/',
+    url='http://example.com/flask-mysql-onion/',
     license='BSD',
-    author='onion213',
-    author_email='onion213@example.com',
-    description='Very basic support for MySQL',
+    author='onion',
+    author_email='onion@example.com',
+    description='Very basic support for MySQL in Flask Applications',
     long_description=__doc__,
     py_modules=['flask_mysql'],
-    # if you would be using a package instead use packages instead
-    # of py_modules:
-    # packages=['flask_sqlite3'],
     zip_safe=False,
     include_package_data=True,
     platforms='any',
