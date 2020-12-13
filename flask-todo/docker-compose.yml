@@ -5,7 +5,9 @@ volumes:
 
 services:
   flask:
-    build: .
+    build: 
+      context: ../
+      dockerfile: ./flask-todo/Dockerfile
     ports:
       - '5000:5000'
     volumes:

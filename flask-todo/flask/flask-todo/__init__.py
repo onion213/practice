@@ -1,24 +1,25 @@
 from flask import Flask, render_template, g, request, redirect, url_for, session, flash
 from werkzeug.security import check_password_hash, generate_password_hash
-from db import connect_db, close_db
+from flask_mysql import MySQL
 
 
 def create_app():
     app = Flask(__name__)
     app.secret_key = 'app secret key'
+    app.config.from_pyfile('config_file.cfg')
+    db = MySQL(app)
 
     @app.route('/login', methods=['GET', 'POST'])
     def login():
         if request.method == 'POST':
             username = request.form['username']
             password = request.form['password']
-            db = connect_db()
-            cursor = db.cursor()
+            conn = db.connection
+            cursor = conn.cursor()
             cursor.execute(
                 'SELECT * FROM users WHERE name = %s AND enabled = TRUE;', (username,)
             )
             user = cursor.fetchone()
-            close_db()
             error = None
 
             if user is None:
@@ -53,8 +54,8 @@ def create_app():
             username = request.form['username']
             password = request.form['password']
 
-            db = connect_db()
-            cursor = db.cursor()
+            conn = db.connection
+            cursor = conn.cursor()
             cursor.execute(
                 'SELECT * FROM users WHERE name = %s AND enabled = TRUE;', (username,)
             )
@@ -69,11 +70,9 @@ def create_app():
                     'INSERT INTO users(name, password) VALUES(%s, %s);', 
                     (username, generate_password_hash(password))
                 )
-                db.commit()
-                close_db()
+                conn.commit()
                 return redirect(url_for('login'))
             
-            close_db()
             flash(error)
             return render_template('auth/register.html')
         else:
@@ -84,8 +83,8 @@ def create_app():
         uid = session.get('uid')
         if uid is None:
             return redirect(url_for('login'))
-        db = connect_db()
-        cursor = db.cursor()
+        conn = db.connection
+        cursor = conn.cursor()
         cursor.execute(
             'SELECT * FROM todos WHERE user_id = %s AND done = FALSE;',
             (uid,)
@@ -105,14 +104,13 @@ def create_app():
             return redirect(url_for('login'))
         if request.method == 'POST':
             title = request.form['title']
-            db = connect_db()
-            cursor = db.cursor()
+            conn = db.connection
+            cursor = conn.cursor()
             cursor.execute(
                 'INSERT INTO todos(user_id, title) VALUES(%s, %s)',
                 (uid, title)
             )
-            db.commit()
-            close_db()
+            conn.commit()
             return redirect('/home')
         else:
             return render_template('main/add.html')
@@ -123,14 +121,13 @@ def create_app():
         if uid is None:
             return redirect(url_for('login'))
         
-        db = connect_db()
-        cursor = db.cursor()
+        conn = db.connection
+        cursor = conn.cursor()
         cursor.execute(
             'DELETE FROM todos WHERE todo_id = %s AND user_id = %s',
             (todo_id, uid)
         )
-        db.commit()
-        close_db()
+        conn.commit()
         return redirect(url_for('home'))
 
     @app.route('/complete/<int:todo_id>')
@@ -139,14 +136,13 @@ def create_app():
         if uid is None:
             return redirect(url_for('login'))
         
-        db = connect_db()
-        cursor = db.cursor()
+        conn = db.connection
+        cursor = conn.cursor()
         cursor.execute(
             'UPDATE todos SET done = TRUE WHERE todo_id = %s AND user_id = %s',
             (todo_id, uid)
         )
-        db.commit()
-        close_db()
+        conn.commit()
         return redirect(url_for('home'))
 
     @app.route('/incomplete/<int:todo_id>')
@@ -155,14 +151,13 @@ def create_app():
         if uid is None:
             return redirect(url_for('login'))
         
-        db = connect_db()
-        cursor = db.cursor()
+        conn = db.connection
+        cursor = conn.cursor()
         cursor.execute(
             'UPDATE todos SET done = FALSE WHERE todo_id = %s AND user_id = %s',
             (todo_id, uid)
         )
-        db.commit()
-        close_db()
+        conn.commit()
         return redirect(url_for('home'))
 
     @app.route('/completed-todos')
@@ -170,8 +165,8 @@ def create_app():
         uid = session.get('uid')
         if uid is None:
             return redirect(url_for('login'))
-        db = connect_db()
-        cursor = db.cursor()
+        conn = db.connection
+        cursor = conn.cursor()
         cursor.execute(
             'SELECT * FROM todos WHERE user_id = %s AND done = TRUE ORDER BY updated_at DESC;',
             (uid,)
@@ -187,13 +182,13 @@ def create_app():
                 return redirect(url_for('login'))
             
             reason = request.form['reason']
-            db = connect_db()
-            cursor = db.cursor()
+            conn = db.connection
+            cursor = conn.cursor()
             cursor.execute(
                 'INSERT INTO exiting_reasons(user_id, reason) VALUES(%s, %s);',
                 (uid, reason)
             )
-            db.commit()
+            conn.commit()
             session.clear()
             return redirect(url_for('login'))
         else:
@@ -201,13 +196,13 @@ def create_app():
             if uid is None:
                 return redirect(url_for('login'))
         
-            db = connect_db()
-            cursor = db.cursor()
+            conn = db.connection
+            cursor = conn.cursor()
             cursor.execute(
                 'UPDATE users SET enabled = FALSE WHERE user_id = %s;',
                 (uid,)
             )
-            db.commit()
+            conn.commit()
             session.clear()
             session['deleted_uid'] = uid
             return render_template('/main/exiting-questionaire.html')
