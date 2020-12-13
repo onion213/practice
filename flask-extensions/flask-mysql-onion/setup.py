@@ -21,7 +21,7 @@ setup(
     author_email='onion@example.com',
     description='Very basic support for MySQL in Flask Applications',
     long_description=__doc__,
-    py_modules=['flask_mysql'],
+    py_modules=['flask_mysql_onion'],
     zip_safe=False,
     include_package_data=True,
     platforms='any',
