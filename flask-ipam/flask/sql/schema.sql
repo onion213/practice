@@ -1,10 +1,10 @@
-### データベース作成
-CREATE DATAbASE ipam;
+### Create database.
+CREATE DATABASE ipam;
 
-### データベースを選択
+### Select database.
 USE ipam;
 
-### ユーザテーブル作成
+### Create user table
 CREATE TABLE Users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     user_name TEXT NOT NULL UNIQUE 
@@ -13,7 +13,7 @@ CREATE TABLE Users (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP   
 );
 
-### ユーザグループテーブル作成
+### Create user group table.
 CREATE TABLE User_Groups (
     user_group_id INT PRIMARY KEY AUTO_INCREMENT,
     user_group_name TEXT NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE User_Groups (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP   
 );
 
-### ユーザロールマスタ作成
+### Create user role master table.
 CREATE TABLE User_Roles (
     role_id INT PRIMARY KEY AUTO_INCREMENT,
     role_name TEXT NOT NULL UNIQUE,
@@ -29,11 +29,11 @@ CREATE TABLE User_Roles (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP   
 );
 
-### ユーザロールマスタデータ作成
+### Create user role master data.
 INSERT INTO User_Roles(`role_name`) VALUES('admin');
 INSERT INTO User_Roles(`role_name`) VALUES('normal');
 
-### 所属テーブル作成
+### Create belonging table.
 CREATE TABLE User_Belongs_Group (
     user_id INT NOT NULL,
     user_group_id INT NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE User_Belongs_Group (
     FOREIGN KEY role_id REFERENCES User_Roles(role_id)
 );
 
-### 拠点テーブル作成
+### Create location table.
 CREATE TABLE Locations (
     location_id INT PRIMARY KEY AUTO_INCREMENT,
     user_group_id INT NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE Locations (
     FOREIGN KEY user_group_id REFERENCES User_Groups(user_group_id)
 );
 
-### IPバージョンマスタ作成
+### Create IP version master table.
 CREATE TABLE IP_Versions (
     ip_version_id INT PRIMARY KEY AUTO_INCREMENT,
     ip_version TEXT NOT NULL,
@@ -65,11 +65,11 @@ CREATE TABLE IP_Versions (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP   
 );
 
-### IPバージョンマスタデータ作成
+### Create IP version master data.
 INSERT INTO IP_Versions(`ip_version`) VALUES ('4');
 INSERT INTO IP_Versions(`ip_version`) VALUES ('6');
 
-### サブネットマスクマスタ作成
+### Create subnet mask master table.
 CREATE TABLE Subnet_Masks (
     subnet_mask_id INT PRIMARY KEY AUTO_INCREMENT,
     ip_version_id INT NOT NULL,
@@ -80,13 +80,13 @@ CREATE TABLE Subnet_Masks (
     FOREIGN KEY ip_version_id REFERENCES IP_Versions(ip_version_id)
 );
 
-### サブネットマスクマスタデータ作成
+### Create subnet mask master data.
 INSERT INTO IP_Versions(`ip_version_id`, `subnet_mask_address`, `subnet_mask_number`) VALUES(
     SELECT ip_version_id, '255.255.255.255', 32 FROM IP_Versions WHERE ip_version='4'
 );
 # 他多数
 
-### レンジテーブル作成
+### Create range table.
 CREATE TABLE Ranges (
     range_id INT PRIMARY KEY AUTO_INCREMENT,
     user_group_id INT NOT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE Ranges (
     FOREIGN KEY ip_version_id REFERENCES IP_Versions(ip_version_id)
 );
 
-### セグメントテーブル作成
+### Create segment table
 CREATE TABLE Segments (
     segment_id INT PRIMARY KEY AUTO_INCREMENT,
     segment_name TEXT NOT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE Segments (
     FOREIGN KEY subnet_mask_id REFERENCES Subnet_Masks(subnet_mask_id)
 );
 
-### ホストテーブル作成
+### Create host table
 CREATE TABLE Hosts (
     host_id INT PRIMARY KEY AUTO_INCREMENT,
     segment_id INT NOT NULL,
