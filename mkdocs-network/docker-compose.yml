@@ -1,0 +1,7 @@
+version: '3'
+
+services: 
+  mkdocs:
+    image: squidfunk/mkdocs-material:latest
+    volumes: 
+      - './mount:/docs'
