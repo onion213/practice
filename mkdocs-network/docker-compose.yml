@@ -3,5 +3,9 @@ version: '3'
 services: 
   mkdocs:
     image: squidfunk/mkdocs-material:latest
+    ports: 
+      - '38000:8000'
     volumes: 
       - './mount:/docs'
+    stdin_open: true
+    tty: true
