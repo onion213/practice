@@ -22,3 +22,6 @@ venv/
 db-logs/
 Documents/
 *.cfg
+
+# Jupyter Notebook
+.ipynb_checkpoints
