@@ -1,4 +1,6 @@
 FROM jupyter/minimal-notebook:latest
-RUN pip install --upgrade pip && pip install sklearn \
+
+RUN conda update --all
+RUN conda install scikit-learn \
     tensorflow \
-    torch
+    pytorch torchvision -c pytorch
