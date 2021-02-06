@@ -9,3 +9,4 @@ services:
       - './mount:/home/jovyan/work'
     stdin_open: true
     tty: true
+    command: jupyter notebook --notebook-dir /home/jovyan/work
