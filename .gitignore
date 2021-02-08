@@ -25,3 +25,5 @@ Documents/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+python-data-science-introduction/mount/data*
+
