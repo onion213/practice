@@ -1,0 +1,31 @@
+nwdiag {
+    network external {
+        address = "10.0.0.0/24"
+ 
+        fw01 [address = ".1/24"];
+    }
+    network dmz {
+        address = "172.16.0.0/24"
+ 
+        fw01 [address = ".254"];
+        bigip01 [address = ".253"];
+    }
+    network web-lan {
+        address = "172.16.10.0/24"
+ 
+        bigip01 [address = ".253"];
+        fw02 [address = ".252"];
+        web01 [address = ".11"];
+        web02 [address = ".12"];
+        web03 [address = ".13"];
+        web11 [address = ".21"];
+        web12 [address = ".22"];
+    }
+    network db-lan {
+        address = "172.16.20.0/24"
+ 
+        fw02 [address = ".254"];
+        db01 [address = ".11"];
+        db02 [address = ".12"];
+    }
+}
